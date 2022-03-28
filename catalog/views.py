@@ -107,17 +107,12 @@ def renew_book_librarian(request, pk):
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('all-my-borrowed') )
 
-    # If this is a GET (or any other method) create the default form.
-    else:
-        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
-
-    context = {
+        context = {
         'form': form,
         'book_instance': book_instance,
     }
 
-    return render(request, 'catalog/book_renew_librarian.html', context)
+    return render(request, 'author-create', context)
 
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
@@ -125,7 +120,6 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
 
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
-    initial = {'date_of_death': '11/06/2020'}
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.can_mark_returned'
@@ -143,7 +137,7 @@ class BookCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.can_mark_returned'
 
     model = Book
-    fields = ['title', 'author', 'summary', 'isbn', 'genre' ]
+    fields = ['title', 'photo', 'author', 'summary', 'isbn', 'genre' ]
 
 class GenreCreate(PermissionRequiredMixin,CreateView):
     permission_required = 'catalog.can_mark_returned'
@@ -155,7 +149,7 @@ class BookUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.can_mark_returned'
 
     model = Book
-    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    fields = ['title', 'photo', 'author', 'summary', 'isbn', 'genre' ]
 
 class BookDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.can_mark_returned'

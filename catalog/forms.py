@@ -21,3 +21,7 @@ class RenewBookForm(forms.Form):
 
         # Remember to always return the cleaned data.
         return data
+
+class AurthorDates(forms.Form):
+    date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    date_of_death = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
