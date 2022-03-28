@@ -29,7 +29,7 @@ class Genre(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=200)
 
-    photo = models.ImageField(default='empty', upload_to='books/')
+    photo = models.ImageField(default='null', upload_to='books/')
 
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
 

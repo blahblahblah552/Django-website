@@ -121,8 +121,8 @@ class AuthorForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'date_of_birth', 'date_of_death')
         widgets = {
 
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-            'date_of_death': forms.DateInput(attrs={'type': 'date'}),
+            'date_of_birth': forms.DateInput(attrs={'type': 'date', 'max': datetime.date.today()}),
+            'date_of_death': forms.DateInput(attrs={'type': 'date', 'max': datetime.date.today() + datetime.timedelta(days=1)}),
             }
 
         def clean_dates(self):
