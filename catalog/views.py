@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
-from django.forms import ModelForm
+from django import forms
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -114,12 +114,34 @@ def renew_book_librarian(request, pk):
 
     return render(request, 'author-create', context)
 
+class AuthorForm(forms.ModelForm):
+
+    class Meta:
+        model = Author
+        fields = ('first_name', 'last_name', 'date_of_birth', 'date_of_death')
+        widgets = {
+
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            'date_of_death': forms.DateInput(attrs={'type': 'date'}),
+            }
+
+        def clean_dates(self):
+            dateB = self.cleaned_data['date_of_birth']
+            dateD = self.cleaned_data['date_of_death']
+
+            if dateB > datetime.date.today():
+                raise ValidationErro(_("Invalid date not born yet"))
+
+            if dateD > datetime.date.today():
+                raise ValidationErro(_("Invalid date ...unless you can predict the future"))
+
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.can_mark_returned'
 
     model = Author
-    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+#    fields = ['first_name', 'last_name']
+    form_class = AuthorForm
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.can_mark_returned'
