@@ -144,7 +144,13 @@ class BookCreate(PermissionRequiredMixin, CreateView):
 
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre' ]
-   
+
+class GenreCreate(PermissionRequiredMixin,CreateView):
+    permission_required = 'catalog.can_mark_returned'
+
+    model = Genre
+    fields = ['name']
+    
 class BookUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.can_mark_returned'
 

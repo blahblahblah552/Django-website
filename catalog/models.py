@@ -4,9 +4,23 @@ import uuid
 from django.contrib.auth.models import User
 from datetime import date
 
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
 class Genre(models.Model):
     """Model representing a bood genre."""
-    name = models.CharField(max_length=200, help_text='Enter a book genre')
+    name = models.CharField(max_length=200, unique=True, help_text='Enter a book genre')
+
+    def clean_renewal_genre(self):
+        data = self.cleaned_data['name']
+
+        for name in genre.all():
+            if name == data:
+                raise ValidationErro(_('Genre already exists'))
+
+    def get_absolute_url(self):
+
+        return reverse('book-create')
 
     def __str__(self):
         return self.name
@@ -23,6 +37,7 @@ class Book(models.Model):
     isbn = models.CharField('ISBN', max_length=13, unique=True, help_text='13 character')
     
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
+
     def __str__(self):
         return self.title
 
@@ -34,6 +49,7 @@ class Book(models.Model):
         return ', '.join(genre.name for genre in self.genre.all()[:3])
 
     display_genre.short_description = 'Genre'
+    
 
 class BookInstance(models.Model):
 
@@ -69,6 +85,7 @@ class BookInstance(models.Model):
     class Meta:
         ordering = ['due_back']
         permissions = (("can_mark_returned", "Set book as returned"),)
+       
         
     def __str__(self):
         return f'{self.id} ({self.book.title})'

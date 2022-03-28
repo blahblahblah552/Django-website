@@ -1,11 +1,14 @@
 {% extends "base_generic.html" %}
 
+
 {% block content %}
   <form action="" method="post">
     {% csrf_token %}
     <table>
-    {{ form.as_table }}
+      {{ form.as_table }}
     </table>
+    <button href="{% url 'genre-create' %} onclick="">Add genre</button>
+    <hr>
     <input type="submit" value="Submit">
   </form>
 {% endblock %}
