@@ -2,6 +2,8 @@ import datetime
 
 from django import forms
 
+from .models import Author
+
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -22,6 +24,13 @@ class RenewBookForm(forms.Form):
         # Remember to always return the cleaned data.
         return data
 
-class AurthorDates(forms.Form):
-    date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-    date_of_death = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+class AuthorForm(forms.ModelForm):
+
+    class Meta:
+        model = Author
+        fields = ('first_name', 'last_name', 'date_of_birth', 'date_of_death')
+        widgets = {
+
+            'date_of_birth': forms.DateInput(attrs={'type': 'date', 'max': datetime.date.today()}),
+            'date_of_death': forms.DateInput(attrs={'type': 'date', 'max': datetime.date.today() + datetime.timedelta(days=1)}),
+            }

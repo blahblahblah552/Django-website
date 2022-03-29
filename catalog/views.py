@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Book, Author, BookInstance, Genre
-from catalog.forms import RenewBookForm
+from catalog.forms import AuthorForm, RenewBookForm
 
 def index(request):
     """View function for home page of site."""
@@ -107,33 +107,17 @@ def renew_book_librarian(request, pk):
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('all-my-borrowed') )
 
-        context = {
+    # If this is a GET (or any other method) create the default form.
+    else:
+        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
+
+    context = {
         'form': form,
         'book_instance': book_instance,
     }
 
-    return render(request, 'author-create', context)
-
-class AuthorForm(forms.ModelForm):
-
-    class Meta:
-        model = Author
-        fields = ('first_name', 'last_name', 'date_of_birth', 'date_of_death')
-        widgets = {
-
-            'date_of_birth': forms.DateInput(attrs={'type': 'date', 'max': datetime.date.today()}),
-            'date_of_death': forms.DateInput(attrs={'type': 'date', 'max': datetime.date.today() + datetime.timedelta(days=1)}),
-            }
-
-        def clean_dates(self):
-            dateB = self.cleaned_data['date_of_birth']
-            dateD = self.cleaned_data['date_of_death']
-
-            if dateB > datetime.date.today():
-                raise ValidationErro(_("Invalid date not born yet"))
-
-            if dateD > datetime.date.today():
-                raise ValidationErro(_("Invalid date ...unless you can predict the future"))
+    return render(request, 'catalog/book_renew_librarian.html', context)
 
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
@@ -154,7 +138,7 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
 
     model = Author
     success_url = reverse_lazy('authors')
-
+    
 class BookCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.can_mark_returned'
 
