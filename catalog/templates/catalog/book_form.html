@@ -1,13 +1,12 @@
 {% extends "base_generic.html" %}
 
-
 {% block content %}
-  <form action="" method="post">
+  <form action="" enctype="multipart/form-data" method="post">
     {% csrf_token %}
     <table>
       {{ form.as_table }}
     </table>
-    <button href="{% url 'genre-create' %} onclick="">Add genre</button>
+    <a type="button" href="{% url 'genre-create' %}" class="btn btn-primary">Add genre</a>
     <hr>
     <input type="submit" value="Submit">
   </form>
