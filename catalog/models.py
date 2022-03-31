@@ -76,6 +76,8 @@ class BookInstance(models.Model):
          default='m',
          help_text='Book availability',
      )
+    def get_absolute_url(self):
+        return reverse('book-detail', args=[self.book.pk])
 
     @property
     def is_overdue(self):
