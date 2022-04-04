@@ -11,7 +11,8 @@
     {% for book in book_list %}
       <li>
         <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}}) {% if perms.catalog.can_mark_returned %}<a href="{% url 'book-update' book.pk %}">Update book </a> <a href="{% url 'book-delete' book.pk %}"> Delete book</a>{% endif%}
-      </li>
+	</li>
+        <img src="{{book.photo.url}}" alt="{{book.title}} photo"></li>
     {% endfor %}
   </ul>
   {% else %}

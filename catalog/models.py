@@ -39,6 +39,8 @@ class Book(models.Model):
     
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
 
+    pub_date = models.DateTimeField(default=date.today())
+
     def __str__(self):
         return self.title
 
@@ -113,5 +115,9 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['last_name']
+
+####used for solr and haystack search        
+    def title(self):
+        return f'{self.last_name}, {self.first_name}'
         
             
