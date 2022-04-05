@@ -17,7 +17,7 @@ class Genre(models.Model):
 
         for name in genre.all():
             if name == data:
-                raise ValidationErro(_('Genre already exists'))
+                raise ValidationError(_('Genre already exists'))
 
     def get_absolute_url(self):
 
@@ -26,10 +26,16 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class Language(models.Model):
+    name = models.CharField(max_length=20, unique=True, help_text='Enter book language')
+
+    def __str__(self):
+        return self.name
+    
 class Book(models.Model):
     title = models.CharField(max_length=200)
 
-    photo = models.ImageField(default='null', upload_to='books/')
+    photo = models.ImageField(null=True, upload_to='books/')
 
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
 
@@ -39,7 +45,9 @@ class Book(models.Model):
     
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
 
-    pub_date = models.DateTimeField(default=date.today())
+    pub_date = models.DateTimeField(null=True, blank=True)
+    
+    language = models.ManyToManyField(Language, help_text = 'select a language')
 
     def __str__(self):
         return self.title
@@ -52,6 +60,11 @@ class Book(models.Model):
         return ', '.join(genre.name for genre in self.genre.all()[:3])
 
     display_genre.short_description = 'Genre'
+
+    def display_language(self):
+        return ', '.join(language.name for language in self.language.all()[:3])    
+
+    display_language.short_description = 'Language'
     
 
 class BookInstance(models.Model):

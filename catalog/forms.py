@@ -2,7 +2,7 @@ import datetime
 
 from django import forms
 
-from .models import Author, BookInstance
+from .models import Author, BookInstance, Book
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -41,6 +41,14 @@ class BookInstanceForm(forms.ModelForm):
         model = BookInstance
         fields = ['borrower', 'book', 'imprint', 'due_back', 'status']
         widgets = {
-
             'due_back': forms.DateInput(attrs={'type': 'date', 'min': datetime.date.today(), 'max': datetime.date.today() + datetime.timedelta(weeks=4)}),
+            }
+
+class BookForm(forms.ModelForm):
+
+    class Meta:
+        model = Book
+        fields = ['title', 'photo', 'author', 'summary', 'isbn', 'genre', 'pub_date', 'language' ]
+        widgets = {
+            'pub_date': forms.DateInput(attrs={'type': 'date'}),
             }

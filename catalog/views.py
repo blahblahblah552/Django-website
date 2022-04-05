@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Book, Author, BookInstance, Genre
-from catalog.forms import AuthorForm, RenewBookForm, BookInstanceForm
+from catalog.forms import AuthorForm, RenewBookForm, BookInstanceForm, BookForm
 
 def index(request):
     """View function for home page of site."""
@@ -142,7 +142,7 @@ class BookCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.can_mark_returned'
 
     model = Book
-    fields = ['title', 'photo', 'author', 'summary', 'isbn', 'genre' ]
+    fields = ['title', 'photo', 'author', 'summary', 'isbn', 'genre', 'pub_date', 'language' ]
 
 class GenreCreate(PermissionRequiredMixin,CreateView):
     permission_required = 'catalog.can_mark_returned'
@@ -154,8 +154,8 @@ class BookUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.can_mark_returned'
 
     model = Book
-    fields = ['title', 'photo', 'author', 'summary', 'isbn', 'genre' ]
-
+    form_class = BookForm
+    
 class BookDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.can_mark_returned'
 
