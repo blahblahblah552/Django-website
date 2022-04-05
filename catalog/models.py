@@ -35,7 +35,7 @@ class Language(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=200)
 
-    photo = models.ImageField(null=True, upload_to='books/')
+    photo = models.ImageField(blank=True, upload_to='books/')
 
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
 
@@ -45,7 +45,7 @@ class Book(models.Model):
     
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
 
-    pub_date = models.DateTimeField(null=True, blank=True)
+    pub_date = models.DateTimeField(default=date.today(), blank=True)
     
     language = models.ManyToManyField(Language, help_text = 'select a language')
 
