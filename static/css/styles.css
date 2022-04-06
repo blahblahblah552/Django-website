@@ -4,7 +4,15 @@
     list-style: none;
 }
 
-img {
-    max-width: 100%;
-    height: auto%
+.img {
+    max-width: 50px;
+    height: 50px;
+    object-fit: scale-down;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: #blue;
+    padding: 10px;
 }

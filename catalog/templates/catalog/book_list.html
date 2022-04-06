@@ -1,20 +1,35 @@
-
 {% extends "base_generic.html" %}
+<style>
+.img {
+    max-width: 50px;
+    height: 50px;
+}
 
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: #blue;
+    padding: 10px;
+}
+</style>
 {% block content %}
   <h1>Book List</h1>
   {% if perms.catalog.can_mark_returned %}
   <a href="{% url 'book-create' %}">Create book</a>
   {% endif %}
   {% if book_list %}
-  <ul>
     {% for book in book_list %}
-      <li>
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}}) {% if perms.catalog.can_mark_returned %}<a href="{% url 'book-update' book.pk %}">Update book </a> <a href="{% url 'book-delete' book.pk %}"> Delete book</a>{% endif%}
-	</li>
-        <img src="{{book.photo.url}}" alt="{{book.title}} photo"></li>
+    <div class="grid-container">
+      <div class="grid-item">
+	<ul>
+	  <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a><a>({{book.author}})</a></li>
+	  {% if perms.catalog.can_mark_returned %}<li><a href="{% url 'book-update' book.pk %}">Update book</a></li>
+	  <li><a href="{% url 'book-delete' book.pk %}">Delete book</a></li>{% endif%}
+	  <li><img src="{{book.photo.url}}" alt="{{book.title}} photo"></li>
+	</ul>
+      </div>
+    </div>
     {% endfor %}
-  </ul>
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
