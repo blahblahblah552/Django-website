@@ -1,8 +1,4 @@
 # Django-website
 
-<<<<<<< HEAD
-There is a live version on 71.219.221.246 if you want to look.
+his is the a modified version of the Django tutorial that [Mozilla](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Tutorial_local_library_website) provides. I ended up adding [Apache Solr](https://solr.apache.org/) to make the website searchable. 
 
-=======
-There is a live version at 71.219.221.246 if you want to look.
->>>>>>> b41d239765a11e5f5647f55e8c66ceef12bdfc9d
