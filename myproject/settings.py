@@ -24,7 +24,11 @@ SECRET_KEY = 'django-insecure-60!zcy##dp7qzwn6(m#cgfut!-biw@n+_nxhqx(0%qggg_vvvw
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['192.168.1.182' , '2605:59c8:24ea:6d10:335d:3ee4:de10:354c', 'silasTestWebSite.com']
+ALLOWED_HOSTS = [
+    '192.168.1.182' , 
+    '[2605:59c8:24ea:6d10:335d:3ee4:de10:354c]', 
+    'silasTestWebSite.com', 
+    '127.0.0.1']
 
 
 # Application definition
