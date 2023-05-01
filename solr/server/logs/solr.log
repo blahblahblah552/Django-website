@@ -72,3 +72,18 @@
 2023-04-30 20:21:46.446 INFO  (qtp208684473-19) [   x:tester] o.a.s.c.S.Request [tester]  webapp=/solr path=/select params={q=(Lord)&df=text&fl=*+score&start=0&fq=django_ct:(catalog.book)&rows=20&wt=json} hits=3 status=0 QTime=11
 2023-04-30 20:21:59.852 INFO  (qtp208684473-16) [   x:tester] o.a.s.c.S.Request [tester]  webapp=/solr path=/select params={q=(The)&df=text&fl=*+score&start=0&fq=django_ct:(catalog.author+OR+catalog.book)&rows=20&wt=json} hits=6 status=0 QTime=1
 2023-04-30 20:36:46.087 INFO  (qtp208684473-24) [   x:tester] o.a.s.c.S.Request [tester]  webapp=/solr path=/select params={q=(name)&df=text&fl=*+score&start=0&fq=django_ct:(catalog.book)&rows=20&wt=json} hits=2 status=0 QTime=1
+2023-04-30 20:52:36.041 INFO  (qtp208684473-24) [   x:tester] o.a.s.c.S.Request [tester]  webapp=/solr path=/select params={q=(Of)&df=text&fl=*+score&start=0&fq=django_ct:(catalog.author+OR+catalog.book)&rows=20&wt=json} hits=6 status=0 QTime=1
+2023-05-01 04:16:45.586 INFO  (JettyShutdownThread) [   ] o.e.j.s.AbstractConnector Stopped ServerConnector@54dcfa5a{HTTP/1.1, (http/1.1, h2c)}{0.0.0.0:8983}
+2023-05-01 04:16:45.588 INFO  (JettyShutdownThread) [   ] o.e.j.s.session node0 Stopped scavenging
+2023-05-01 04:16:45.621 INFO  (JettyShutdownThread) [   ] o.a.s.c.CoreContainer Shutting down CoreContainer instance=1956060889
+2023-05-01 04:16:45.627 INFO  (coreCloseExecutor-21-thread-1) [   ] o.a.s.c.SolrCore [tester]  CLOSING SolrCore org.apache.solr.core.SolrCore@64146fe9
+2023-05-01 04:16:45.627 INFO  (coreCloseExecutor-21-thread-1) [   ] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.core.tester tag=SolrCore@64146fe9
+2023-05-01 04:16:45.627 INFO  (coreCloseExecutor-21-thread-1) [   ] o.a.s.m.r.SolrJmxReporter Closing reporter [org.apache.solr.metrics.reporters.SolrJmxReporter@5bdacebb: rootName = null, domain = solr.core.tester, service url = null, agent id = null] for registry solr.core.tester/com.codahale.metrics.MetricRegistry@c07779b
+2023-05-01 04:16:45.671 INFO  (coreCloseExecutor-21-thread-1) [   ] o.a.s.u.DirectUpdateHandler2 Committing on IndexWriter.close()  ... SKIPPED (unnecessary).
+2023-05-01 04:16:45.686 INFO  (JettyShutdownThread) [   ] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.node tag=null
+2023-05-01 04:16:45.686 INFO  (JettyShutdownThread) [   ] o.a.s.m.r.SolrJmxReporter Closing reporter [org.apache.solr.metrics.reporters.SolrJmxReporter@55d58825: rootName = null, domain = solr.node, service url = null, agent id = null] for registry solr.node/com.codahale.metrics.MetricRegistry@2d73308d
+2023-05-01 04:16:45.689 INFO  (JettyShutdownThread) [   ] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jvm tag=null
+2023-05-01 04:16:45.689 INFO  (JettyShutdownThread) [   ] o.a.s.m.r.SolrJmxReporter Closing reporter [org.apache.solr.metrics.reporters.SolrJmxReporter@617389a: rootName = null, domain = solr.jvm, service url = null, agent id = null] for registry solr.jvm/com.codahale.metrics.MetricRegistry@ed1a9ba
+2023-05-01 04:16:45.693 INFO  (JettyShutdownThread) [   ] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jetty tag=null
+2023-05-01 04:16:45.693 INFO  (JettyShutdownThread) [   ] o.a.s.m.r.SolrJmxReporter Closing reporter [org.apache.solr.metrics.reporters.SolrJmxReporter@1c8f6a90: rootName = null, domain = solr.jetty, service url = null, agent id = null] for registry solr.jetty/com.codahale.metrics.MetricRegistry@3b77a7b3
+2023-05-01 04:16:45.703 INFO  (JettyShutdownThread) [   ] o.e.j.s.h.ContextHandler Stopped o.e.j.w.WebAppContext@76f7d241{/solr,null,STOPPED}{/home/silas/site/myproject/solr/server/solr-webapp/webapp}
